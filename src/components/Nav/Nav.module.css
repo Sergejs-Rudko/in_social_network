@@ -2,3 +2,14 @@
     grid-area: nav;
     background-color: cornflowerblue;
 }
+
+.nav_item a {
+    text-decoration: none;
+    color: greenyellow;
+}
+
+.nav_item a .active {
+    color: gold;
+}
+
+
