@@ -1,15 +1,23 @@
 .nav {
     grid-area: nav;
-    background-color: cornflowerblue;
+    background-color: yellow;
+}
+.activeLink {
+    font-size: x-large;
+    color : black;
+    font-style: italic;
 }
 
-.nav_item a {
+a {
     text-decoration: none;
-    color: greenyellow;
+    color: coral;
 }
 
-.nav_item a .active {
-    color: gold;
-}
+
+
+
+
+
+
 
 

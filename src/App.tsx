@@ -4,6 +4,10 @@ import {Header} from "./components/Header/Header";
 import {Nav} from "./components/Nav/Nav";
 import {Profile} from "./components/Content/Profile/Profile";
 import {Dialogs} from "./components/Content/Dialogs/Dialogs";
+import {Route, Routes} from "react-router-dom";
+import {News} from "./components/Content/News/News";
+import {Music} from "./components/Content/Music/Music";
+import {Settings} from "./components/Content/Settings/Settings";
 
 function App() {
     return (
@@ -11,8 +15,13 @@ function App() {
             <Header/>
             <Nav/>
             <div className={"appContent"}>
-                {/*<Profile/>*/}
-                <Dialogs/>
+                <Routes>
+                    <Route path="profile" element={<Profile/>}/>
+                    <Route path="dialogs" element={<Dialogs/>}/>
+                    <Route path="news" element={<News/>}/>
+                    <Route path="music" element={<Music/>}/>
+                    <Route path="settings" element={<Settings/>}/>
+                </Routes>
             </div>
         </div>
     );
