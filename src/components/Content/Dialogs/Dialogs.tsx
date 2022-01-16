@@ -1,23 +1,54 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import styles from "./Dialogs.module.css"
+import {DialogItem} from "./DialogItems/DialogItem";
+import {Message} from "./Messages/Message";
+import {
+    addMessageAC,
+    DialogItemType,
+    MessageType,
+    onUpdateNewMessageTextAC,
+    UnionActionType
+} from "../../../fake_redux/state";
 
-export const Dialogs = () => {
+type DialogsPropsType = {
+    state: {
+        dialogsItems: DialogItemType[]
+        messageData: MessageType[]
+        newMessageText: string
+    }
+    dispatch: (action: UnionActionType) => void
+}
+
+export const Dialogs = (props: DialogsPropsType) => {
+
+    const updateNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        props.dispatch(onUpdateNewMessageTextAC(text))
+    }
+
+    const addMessage = () => {
+        let action = addMessageAC(props.state.newMessageText)
+        props.dispatch(action)
+    }
+
     return (
         <div className={styles.dialogsWrapper}>
             <div className={styles.dialogItems}>
-                Friends
-                <div className={`${styles.dialogItem} ${styles.active}`}>friend 1</div>
-                <div className={styles.dialogItem}>friend 2</div>
-                <div className={styles.dialogItem}>friend 3</div>
+                {
+                    props.state.dialogsItems.map((dd) => <DialogItem name={dd.name} id={dd.id} key={dd.id}/>)
+                }
             </div>
 
 
             <div className={styles.messages}>
-                Messages
-                <div className={styles.message}>dialog 1</div>
-                <div className={styles.message}>dialog 2</div>
-                <div className={styles.message}>dialog 3</div>
+                {
+                    props.state.messageData.map((md) => <Message message={md.message} id={md.id} key={md.id}/>)
+                }
             </div>
+            <textarea value={props.state.newMessageText} onChange={updateNewMessageText}></textarea>
+            <button onClick={addMessage}>Send Message</button>
         </div>
     )
 }
+
+

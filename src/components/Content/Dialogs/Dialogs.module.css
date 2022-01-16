@@ -9,21 +9,12 @@
     grid-area: dialogItems;
 }
 
-
-/* 1 friend  */
-.dialogItem {
-
-}
-
 .dialogItems .active {
     font-size: larger;
-    color: gold;
+    color: red;
 }
 
 .messages {
     grid-area: messages;
 }
 
-.message {
-
-}

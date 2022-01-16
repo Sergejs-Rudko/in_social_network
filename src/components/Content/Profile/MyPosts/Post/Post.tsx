@@ -4,6 +4,7 @@ import styles from "./Post.module.css"
 
 // PROPS TYPE __________________________________________________________________________________________________________
 type PropsType = {
+    id? : number
     message: string
     avatarUrl?: string
     likesCount: number
