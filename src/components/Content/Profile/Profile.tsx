@@ -1,23 +1,14 @@
 import React from "react";
-import {MyPosts} from "./MyPosts/MyPosts";
-import {PostType, UnionActionType} from "../../../fake_redux/state";
-
-type ProfilePropsType = {
-    state: {
-        posts: PostType[]
-        postText: string
-    }
-    dispatch: (obj: UnionActionType) => void
-}
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
-export const Profile = (props: ProfilePropsType) => {
+export const Profile = () => {
     return (
         <div>
             <div>content header image</div>
             <div>avatar</div>
             <div>Profile description</div>
-            <MyPosts state={props.state} dispatch={props.dispatch}/>
+            <MyPostsContainer/>
         </div>
     )
 }

@@ -1,3 +1,6 @@
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+
 export let store = {
     state: {
         profilePage: {
@@ -35,23 +38,8 @@ export let store = {
         return this.state
     },
     dispatch(action: UnionActionType) {
-        if (action.type === "ADD_POST") {
-            let post = {
-                id: 5,
-                message: action.postText,
-                likesCount: 0,
-            }
-            this.state.profilePage.posts.push(post)
-        } else if (action.type === "ON_POST_CHANGE") {
-            this.state.profilePage.postText += action.text
-        } else if (action.type === "UPDATE_NEW_MESSAGE_TEXT") {
-            this.state.dialogsPage.newMessageText += action.text
-        } else if (action.type === "ADD_MESSAGE") {
-            this.state.dialogsPage.messageData.push({id: 10, message: action.text})
-            this.state.dialogsPage.newMessageText = ""
-        } else {
-            throw new Error("lol")
-        }
+        this.state.profilePage = profileReducer(this.state.profilePage, action)
+        this.state.dialogsPage = dialogsReducer(this.state.dialogsPage, action)
     }
 }
 // ACTION CREATORS______________________________________________________________________________________________________

@@ -1,15 +1,12 @@
 import React from "react";
 import styles from "./Nav.module.css"
 import {NavLink} from "react-router-dom";
-import {FriendType} from "../../fake_redux/state";
+import {NavType} from "./NavContainer";
 
-type NavPropsType = {
-    state: {
-        friends: FriendType[]
-    }
-}
 
-export const Nav = (props: NavPropsType) => {
+export const Nav = (props: NavType) => {
+
+
     return (
         <div>
             <nav className={styles.nav}>
@@ -29,7 +26,7 @@ export const Nav = (props: NavPropsType) => {
             </nav>
             <div className={styles.friends}>
                 {
-                    props.state.friends.map(f => <span>{`${f.name} `}</span>)
+                    props.sideBar.friends.map(f => <span>{`${f.name} `}</span>)
                 }
             </div>
         </div>

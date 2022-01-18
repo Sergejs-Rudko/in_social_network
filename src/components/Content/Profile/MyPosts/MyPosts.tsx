@@ -1,36 +1,22 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
-import {addPostAC, onPostChangeAC, PostType, UnionActionType} from "../../../../fake_redux/state";
+import {MyPostsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-    state: {
-        posts: PostType[]
-        postText: string
-    }
-    dispatch: (obj: UnionActionType) => void
-}
+export const MyPosts = (props: MyPostsType) => {
 
-export const MyPosts = (props: MyPostsPropsType) => {
-
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
-        let text = e.currentTarget.value
-        let action = onPostChangeAC(text)
-        props.dispatch(action)
+    const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
+        props.onPostChange(e.currentTarget.value)
     }
 
     const addPost = () => {
-        let action = addPostAC(props.state.postText)
-        props.dispatch(action)
+        props.addPost(props.state.postText)
     }
-
 
     return (
         <div>
             <div>
-                <textarea value={props.state.postText}
-                          onChange={onPostChange}></textarea>
+                <input value={props.state.postText}
+                       onChange={onPostChange}></input>
                 <button onClick={() => addPost()}>Add post</button>
             </div>
             <div>
