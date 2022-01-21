@@ -14,6 +14,8 @@ export const Nav = (props: NavType) => {
                               className={(navData) => navData.isActive ? styles.activeLink : ""}>Profile</NavLink></div>
                 <div><NavLink to="/dialogs"
                               className={(navData) => navData.isActive ? styles.activeLink : ""}>Dialogs</NavLink></div>
+                <div><NavLink to="/users"
+                              className={(navData) => navData.isActive ? styles.activeLink : ""}>Users</NavLink></div>
                 <div><NavLink to="/news"
                               className={(navData) => navData.isActive ? styles.activeLink : ""}>News</NavLink>
                 </div>
@@ -26,7 +28,7 @@ export const Nav = (props: NavType) => {
             </nav>
             <div className={styles.friends}>
                 {
-                    props.sideBar.friends.map(f => <span>{`${f.name} `}</span>)
+                    props.sideBar.friends.map(f => <span key={f.id}>{`${f.name} `}</span>)
                 }
             </div>
         </div>

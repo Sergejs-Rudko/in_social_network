@@ -10,7 +10,6 @@ let initialState = {
 }
 
 
-
 export const profileReducer = (state = initialState, action: UnionActionType) => {
     switch (action.type) {
         case "ADD_POST": {
@@ -19,13 +18,17 @@ export const profileReducer = (state = initialState, action: UnionActionType) =>
                 message: action.postText,
                 likesCount: 0,
             }
-            state.posts.push(post)
-            state.postText = ""
-            return state
+            return {
+                ...state,
+                posts: [...state.posts, post],
+                postText: ""
+            }
         }
         case "ON_POST_CHANGE": {
-            state.postText += action.text
-            return state
+            return {
+                ...state,
+                postText: action.text
+            }
         }
         default : {
             return state

@@ -15,16 +15,21 @@ let initialState = {
     newMessageText: ""
 }
 
-export const dialogsReducer = (state = initialState, action: UnionActionType): any => {
+export const dialogsReducer = (state = initialState, action: UnionActionType): DialogPageStateType => {
     switch (action.type) {
         case "ADD_MESSAGE": {
-            state.messageData.push({id: 10, message: action.text})
-            state.newMessageText = ""
-            return state
+            let newMessage = {id: 10, message: action.text}
+            return {
+                ...state,
+                messageData: [...state.messageData, newMessage],
+                newMessageText: ""
+            }
         }
         case "UPDATE_NEW_MESSAGE_TEXT" : {
-            state.newMessageText += action.text
-            return state
+            return {
+                ...state,
+                newMessageText: action.text
+            }
         }
         default : {
             return state
