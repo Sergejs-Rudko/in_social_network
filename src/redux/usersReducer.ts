@@ -1,5 +1,8 @@
 let initialState = {
-    users: [] as UserType[]
+    users: [] as UserType[],
+    totalCount: 0,
+    pageSize: 100,
+    currentPage: 1
 }
 
 //
@@ -7,6 +10,12 @@ export const usersReducer = (state = initialState, action: UnionActionType) => {
     switch (action.type) {
         case "SET_USERS": {
             return {...state, users: action.users}
+        }
+        case "SET_TOTAL_USERS_COUNT": {
+            return {...state, totalCount: action.totalCount}
+        }
+        case "SET_CURRENT_PAGE_NUMBER": {
+            return {...state, currentPage: action.pageNumber}
         }
         case "FOLLOW": {
             return {
@@ -28,7 +37,7 @@ export const usersReducer = (state = initialState, action: UnionActionType) => {
 //ACTION CREATORS_______________________________________________________________________________________________________
 export const setUsersAC = (users: UserType) => ({
     type: "SET_USERS",
-    users
+    users,
 } as const)
 
 export const followAC = (id: number) => ({
@@ -41,14 +50,31 @@ export const unfollowAC = (id: number) => ({
     id
 } as const)
 
+export const setCurrentPageAC = (pageNumber: number) => ({
+    type: "SET_CURRENT_PAGE_NUMBER",
+    pageNumber
+} as const)
+
+export const setTotalUsersCountAC = (totalCount: number) => ({
+    type: "SET_TOTAL_USERS_COUNT",
+    totalCount
+}as const)
+
 
 //TYPES_________________________________________________________________________________________________________________
 //ActionType
 type FollowActionType = ReturnType<typeof followAC>
 type UnfollowActionType = ReturnType<typeof unfollowAC>
 type SetUsersActionType = ReturnType<typeof setUsersAC>
+type SetCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
+type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 
-type UnionActionType = FollowActionType | UnfollowActionType | SetUsersActionType
+type UnionActionType =
+    FollowActionType
+    | UnfollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
 
 export type UserType = {
     name: string
@@ -62,9 +88,5 @@ export type UserType = {
     followed: boolean
 }
 
-type LocationType = {
-    country: string
-    city: string
-}
 
 export type UserPageStateType = typeof initialState
