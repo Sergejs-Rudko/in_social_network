@@ -1,4 +1,3 @@
-import {UnionActionType} from "./store";
 
 let initialState = {
     dialogsItems: [
@@ -37,7 +36,22 @@ export const dialogsReducer = (state = initialState, action: UnionActionType): D
     }
 }
 
+// ACTION CREATOR ______________________________________________________________________________________________________
+export const onUpdateNewMessageTextAC = (text: string) => ({
+    type: "UPDATE_NEW_MESSAGE_TEXT",
+    text
+} as const)
+
+export const addMessageAC = (text: string) => ({
+    type: "ADD_MESSAGE",
+    text
+} as const)
 //TYPES ________________________________________________________________________________________________________________
+type OnUpdateNewMessageTextActionType = ReturnType<typeof onUpdateNewMessageTextAC>
+type AddMessageActionType = ReturnType<typeof addMessageAC>
+
+type UnionActionType = OnUpdateNewMessageTextActionType | AddMessageActionType
+
 
 export type DialogPageStateType = typeof initialState
 

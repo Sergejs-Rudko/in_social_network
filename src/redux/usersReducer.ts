@@ -2,7 +2,8 @@ let initialState = {
     users: [] as UserType[],
     totalCount: 0,
     pageSize: 100,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 //
@@ -28,6 +29,9 @@ export const usersReducer = (state = initialState, action: UnionActionType) => {
                 ...state,
                 users: state.users.map(u => u.id === action.id ? {...u, followed: false} : u)
             }
+        case "TOOGLE_IS_FETCHING": {
+            return {...state, isFetching: action.toogleValue}
+        }
         default : {
             return state
         }
@@ -58,7 +62,12 @@ export const setCurrentPageAC = (pageNumber: number) => ({
 export const setTotalUsersCountAC = (totalCount: number) => ({
     type: "SET_TOTAL_USERS_COUNT",
     totalCount
-}as const)
+} as const)
+
+export const toogleIsFetchingAC = (toogleValue: boolean) => ({
+    type: "TOOGLE_IS_FETCHING",
+    toogleValue
+} as const)
 
 
 //TYPES_________________________________________________________________________________________________________________
@@ -68,6 +77,7 @@ type UnfollowActionType = ReturnType<typeof unfollowAC>
 type SetUsersActionType = ReturnType<typeof setUsersAC>
 type SetCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
+type ToogleIsFetchingActionType = ReturnType<typeof toogleIsFetchingAC>
 
 type UnionActionType =
     FollowActionType
@@ -75,6 +85,7 @@ type UnionActionType =
     | SetUsersActionType
     | SetCurrentPageActionType
     | SetTotalUsersCountActionType
+    | ToogleIsFetchingActionType
 
 export type UserType = {
     name: string

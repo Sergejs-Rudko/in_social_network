@@ -8,7 +8,8 @@ import {Music} from "./components/Content/Music/Music";
 import {Settings} from "./components/Content/Settings/Settings";
 import {DialogsContainer} from "./components/Content/Dialogs/DialogsContainer";
 import {NavContainer} from "./components/Nav/NavContainer";
-import {UsersContainer} from "./components/Content/Users/UsersContainer";
+import {UsersFullContainer} from "./components/Content/Users/UsersContainer";
+import {ProfileContainerFull} from "./components/Content/Profile/ProfileContainer";
 
 function App() {
     return (
@@ -17,10 +18,10 @@ function App() {
             <NavContainer/>
             <div className={"appContent"}>
                 <Routes>
-                    <Route path="profile" element={<Profile/>}/>
+                    <Route path={"/profile/:userId?"} element={<ProfileContainerFull/>}/>
                     <Route path="dialogs/*"
                            element={<DialogsContainer/>}/>
-                    <Route path={"users"} element={<UsersContainer/>}/>
+                    <Route path={"users"} element={<UsersFullContainer/>}/>
                     <Route path="news" element={<News/>}/>
                     <Route path="music" element={<Music/>}/>
                     <Route path="settings" element={<Settings/>}/>

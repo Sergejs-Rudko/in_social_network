@@ -18,3 +18,7 @@ export type StoreType = typeof reduxStore
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 
+// @ts-ignore
+window.store = reduxStore;
+
+

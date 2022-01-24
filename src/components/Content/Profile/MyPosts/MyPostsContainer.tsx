@@ -1,9 +1,9 @@
 import React from "react";
-import {addPostAC, onPostChangeAC} from "../../../../redux/store";
 import {AppRootStateType} from "../../../../redux/reduxStore";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {addPostAC, onPostChangeAC} from "../../../../redux/profileReducer";
 
 let mapStateToProps = (state: AppRootStateType) => ({
     state: state.profilePage

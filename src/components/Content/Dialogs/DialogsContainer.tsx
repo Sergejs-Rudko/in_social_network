@@ -1,10 +1,6 @@
 import React from "react";
-import {
-    addMessageAC,
-    onUpdateNewMessageTextAC,
-} from "../../../redux/store";
 import {AppRootStateType} from "../../../redux/reduxStore";
-import {DialogPageStateType} from "../../../redux/dialogsReducer";
+import {addMessageAC, DialogPageStateType, onUpdateNewMessageTextAC} from "../../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";

@@ -1,4 +1,6 @@
+
 import {profileReducer} from "./profileReducer";
+/*
 import {dialogsReducer} from "./dialogsReducer";
 
 export let store = {
@@ -44,32 +46,14 @@ export let store = {
 }
 // ACTION CREATORS______________________________________________________________________________________________________
 
-export const addPostAC = (postText: string) => ({
-    type: "ADD_POST",
-    postText
-} as const)
 
-export const onPostChangeAC = (text: string) => ({
-    type: "ON_POST_CHANGE",
-    text
-} as const)
 
-export const onUpdateNewMessageTextAC = (text: string) => ({
-    type: "UPDATE_NEW_MESSAGE_TEXT",
-    text
-} as const)
 
-export const addMessageAC = (text: string) => ({
-    type: "ADD_MESSAGE",
-    text
-} as const)
 
 // TYPES________________________________________________________________________________________________________________
 
-type AddPostActionType = ReturnType<typeof addPostAC>
-type OnPostChangeActionType = ReturnType<typeof onPostChangeAC>
-type OnUpdateNewMessageTextActionType = ReturnType<typeof onUpdateNewMessageTextAC>
-type AddMessageActionType = ReturnType<typeof addMessageAC>
+
+
 
 
 export type UnionActionType = AddPostActionType |
@@ -93,4 +77,4 @@ export type MessageType = {
 export type FriendType = {
     id: number
     name: string
-}
+}*/
