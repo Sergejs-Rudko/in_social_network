@@ -1,5 +1,5 @@
 let initialState = {
-    user: {} as UsersProfileType | null,
+    user: {} as UsersProfileType,
     posts: [
         {id: 1, message: "Here is my first post", likesCount: 1},
         {id: 2, message: "Second post", likesCount: 3},

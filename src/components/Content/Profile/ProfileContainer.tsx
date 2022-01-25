@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {ProfilePageType, setUsersProfileAC, UsersProfileType} from "../../../redux/profileReducer";
 import axios from "axios";
 import {Profile} from "./Profile";
-import {withRouter} from "../../../Extras/withRouter/withRouter";
 import {useParams} from "react-router-dom";
 
 
@@ -16,7 +15,6 @@ const ProfileContainer = (props: ProfileContainerPropsType) => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
             (response) => {
                 if (response) {
-                    debugger
                     props.setUsersProfile(response.data)
                 }
             }

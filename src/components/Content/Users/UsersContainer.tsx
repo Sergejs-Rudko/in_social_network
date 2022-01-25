@@ -20,7 +20,7 @@ class UsersContainer extends React.Component<UsersPageType> {
     componentDidMount() {
         this.props.toogleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.state.currentPage}&
-        count=${this.props.state.pageSize}`).then(
+        count=${this.props.state.pageSize}`, {withCredentials : true}).then(
             (response) => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
@@ -33,7 +33,7 @@ class UsersContainer extends React.Component<UsersPageType> {
         this.props.toogleIsFetching(true)
         this.props.setCurrentPage(pageNumber);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&
-        count=${this.props.state.pageSize}`).then(
+        count=${this.props.state.pageSize}`, {withCredentials : true}).then(
             (response) => {
                 this.props.setUsers(response.data.items)
                 this.props.toogleIsFetching(false)
