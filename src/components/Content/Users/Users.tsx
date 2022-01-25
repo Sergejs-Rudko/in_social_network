@@ -4,6 +4,7 @@ import avatarReplacement from "../../../Extras/img/avtar_replacement.png";
 import {UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {USERS_API} from "../../../API/API";
 
 type PropsType = {
     pages: Array<number>
@@ -17,31 +18,19 @@ type PropsType = {
 export const Users = (props: PropsType) => {
 
     const followUser = (userId: number) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true, headers: {
-                "API-KEY": "a22bfbba-37b1-4c5b-a966-b83499c73071"
+        USERS_API.followUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                props.follow(userId)
             }
-        }).then(
-            (response) => {
-                if (response.data.resultCode === 0) {
-                    props.follow(userId)
-                }
-            }
-        )
+        })
     }
 
     const unfollowUser = (userId: number) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-            withCredentials: true, headers: {
-                "API-KEY": "a22bfbba-37b1-4c5b-a966-b83499c73071"
+        USERS_API.unfollowUser(userId).then((data) => {
+            if (data.resultCode === 0) {
+                props.unfollow(userId)
             }
-        }).then(
-            (response) => {
-                if (response.data.resultCode === 0) {
-                    props.unfollow(userId)
-                }
-            }
-        )
+        })
     }
 
     return (
