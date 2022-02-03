@@ -9,6 +9,7 @@ import {NavContainer} from "./components/Nav/NavContainer";
 import {UsersFullContainer} from "./components/Content/Users/UsersContainer";
 import {ProfileContainerFull} from "./components/Content/Profile/ProfileContainer";
 import {HeaderContainerFull} from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 function App() {
     return (
@@ -17,7 +18,8 @@ function App() {
             <NavContainer/>
             <div className={"appContent"}>
                 <Routes>
-                    <Route path={"/profile/:userId"} element={<ProfileContainerFull/>}/>
+                    <Route path={"login"} element={<Login/>}/>
+                    <Route path={"profile/:userId"} element={<ProfileContainerFull/>}/>
                     <Route path="dialogs/*"
                            element={<DialogsContainer/>}/>
                     <Route path={"users"} element={<UsersFullContainer/>}/>

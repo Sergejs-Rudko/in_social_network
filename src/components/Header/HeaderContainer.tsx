@@ -2,21 +2,16 @@ import React, {useEffect} from "react";
 import {Header} from "./Header";
 import {AppRootStateType} from "../../redux/reduxStore";
 import {Dispatch} from "redux";
-import {connect} from "react-redux";
-import {MeType, setMeAC} from "../../redux/authReducer";
-import axios from "axios";
+import {connect, useDispatch} from "react-redux";
+import {authMeTC, MeType} from "../../redux/authReducer";
+
 
 export const HeaderContainer = (props: AuthType) => {
-
+    const dispatch = useDispatch()
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me` , {withCredentials: true}).then(
-            (response) => {
-                if (response.data.resultCode === 0) {
-                    props.setMe(response.data.data.id, response.data.data.login, response.data.data.email)
-                }
-            }
-        )
+        dispatch(authMeTC())
     }, [])
+
     return (
         <Header state={props.state}/>
     )
@@ -27,8 +22,9 @@ let mapStateToProps = (state: AppRootStateType) => ({
 })
 
 let mapDispatchToProps = (dispatch: Dispatch) => ({
-    setMe: (id: number, login: string, email: string) => {
-        dispatch(setMeAC(id, login, email))
+    authMe: () => {
+        // @ts-ignore
+        dispatch(authMeTC())
     }
 })
 
@@ -37,7 +33,6 @@ type MapStateToPropsType = {
     state: MeType
 }
 type MapDispatchToPropsType = {
-    setMe: (id: number, login: string, email: string) => void
 
 }
 

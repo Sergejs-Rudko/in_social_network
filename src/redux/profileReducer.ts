@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {PROFILE_API} from "../API/API";
+
 let initialState = {
     user: {} as UsersProfileType,
     posts: [
@@ -5,7 +8,8 @@ let initialState = {
         {id: 2, message: "Second post", likesCount: 3},
         {id: 3, message: "Third post", likesCount: 4},
     ],
-    postText: ""
+    postText: "",
+    status: "",
 }
 
 
@@ -32,6 +36,12 @@ export const profileReducer = (state = initialState, action: UnionActionType) =>
                 postText: action.text
             }
         }
+        case "SET_USER_STATUS": {
+            return {...state, status: action.status}
+        }
+        case "UPDATE_STATUS": {
+            return {...state, status: action.status}
+        }
         default : {
             return state
         }
@@ -53,12 +63,67 @@ export const setUsersProfileAC = (profile: UsersProfileType) => ({
     profile
 } as const)
 
+export const setUserStatusAC = (status: string) => ({
+    type: "SET_USER_STATUS",
+    status
+} as const)
+
+export const updateStatusAC = (status: string) => ({
+    type: "UPDATE_STATUS",
+    status
+} as const)
+
+
+//THUNKS _______________________________________________________________________________________________________________
+
+export const setUserProfileTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        PROFILE_API.setUserProfile(userId).then(
+            (data) => {
+                if (data) {
+                    dispatch(setUsersProfileAC(data))
+                }
+            }
+        )
+    }
+}
+
+export const setUserStatusTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        PROFILE_API.setUserStatus(userId).then((data) => {
+            if (data === null) {
+                dispatch(setUserStatusAC("NO STATUS"))
+            }else{
+                dispatch(setUserStatusAC(data))
+            }
+        })
+    }
+}
+
+export const updateStatusTC = (status : string) => {
+    return (dispatch : Dispatch) => {
+        PROFILE_API.updateStatus(status).then((data) => {
+            if(data.resultCode === 0){
+                dispatch(updateStatusAC(status))
+                console.log("update successful")
+            }
+        })
+    }
+}
+
 // TYPES _______________________________________________________________________________________________________________
 type AddPostActionType = ReturnType<typeof addPostAC>
 type OnPostChangeActionType = ReturnType<typeof onPostChangeAC>
 type SetUsersProfileActionType = ReturnType<typeof setUsersProfileAC>
+type SetUserStatusActionType = ReturnType<typeof setUserStatusAC>
+type UpdateStatusActionType = ReturnType<typeof updateStatusAC>
 
-type UnionActionType = AddPostActionType | OnPostChangeActionType | SetUsersProfileActionType
+type UnionActionType =
+    AddPostActionType
+    | OnPostChangeActionType
+    | SetUsersProfileActionType
+    | SetUserStatusActionType
+    | UpdateStatusActionType
 export type ProfilePageType = typeof initialState
 
 
@@ -83,6 +148,7 @@ export type UsersProfileType = {
         large: string | null
     }
 }
+
 
 
 

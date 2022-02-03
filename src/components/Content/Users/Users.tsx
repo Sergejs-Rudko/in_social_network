@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./Users.module.css";
 import avatarReplacement from "../../../Extras/img/avtar_replacement.png";
-import {UserType} from "../../../redux/usersReducer";
+import {followUserTC, unfollowUserTC, UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {USERS_API} from "../../../API/API";
+import {useDispatch} from "react-redux";
 
 type PropsType = {
     pages: Array<number>
@@ -13,24 +12,18 @@ type PropsType = {
     users: UserType[]
     follow: (id: number) => void
     unfollow: (id: number) => void
+    isFollowingInProcess: Array<Number>
+    toogleIsFollowingProcess: (isFetching: boolean, userId: number) => void
 }
 
 export const Users = (props: PropsType) => {
-
+    const dispatch = useDispatch()
     const followUser = (userId: number) => {
-        USERS_API.followUser(userId).then(data => {
-            if (data.resultCode === 0) {
-                props.follow(userId)
-            }
-        })
+        dispatch(followUserTC(userId))
     }
 
     const unfollowUser = (userId: number) => {
-        USERS_API.unfollowUser(userId).then((data) => {
-            if (data.resultCode === 0) {
-                props.unfollow(userId)
-            }
-        })
+        dispatch(unfollowUserTC(userId))
     }
 
     return (
@@ -54,11 +47,15 @@ export const Users = (props: PropsType) => {
                     <div>{u.status}</div>
                     <>
                         {u.followed
-                            ? <button onClick={() => unfollowUser(u.id)}>unfollow</button>
-                            : <button onClick={() => followUser(u.id)}>follow</button>}
+                            ? <button disabled={props.isFollowingInProcess.includes(u.id)}
+                                      onClick={() => unfollowUser(u.id)}>unfollow</button>
+                            : <button onClick={() => followUser(u.id)}
+                                      disabled={props.isFollowingInProcess.includes(u.id)}>follow</button>}
                     </>
                 </div>)
             }
         </div>
     )
 }
+
+// FOLLOW UNFOLLOW

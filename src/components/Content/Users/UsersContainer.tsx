@@ -1,45 +1,39 @@
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
 import {AppRootStateType} from "../../../redux/reduxStore";
 import {Dispatch} from "redux";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toogleIsFetchingAC,
+    followAC, getUsersTC,
+    setCurrentPageTC,
+    setUsersAC, toogleIsFollowingInProcessAC,
     unfollowAC,
     UserPageStateType
 } from "../../../redux/usersReducer";
 import {connect} from "react-redux";
 import {Preloader} from "../../Common/Preloader";
-import {USERS_API} from "../../../API/API";
 
 
 class UsersContainer extends React.Component<UsersPageType> {
 
     componentDidMount() {
         let {currentPage, pageSize} = {...this.props.state}
-        this.props.toogleIsFetching(true)
-        USERS_API.getUsers(currentPage, pageSize).then(
-            (data) => {
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-                this.props.toogleIsFetching(false)
-            }
-        )
+        this.props.getUsers(currentPage, pageSize)
     }
 
+    /*    setCurrentPage = (pageNumber: number) => {
+            let {pageSize} = {...this.props.state}
+            this.props.toogleIsFetching(true)
+            this.props.setCurrentPage(pageNumber);
+            USERS_API.setCurrentPage(pageNumber, pageSize).then(
+                (data) => {
+                    this.props.setUsers(data.items)
+                    this.props.toogleIsFetching(false)
+                }
+            )
+        }*/
     setCurrentPage = (pageNumber: number) => {
         let {pageSize} = {...this.props.state}
-        this.props.toogleIsFetching(true)
-        this.props.setCurrentPage(pageNumber);
-        USERS_API.setCurrentPage(pageNumber, pageSize).then(
-            (data) => {
-                this.props.setUsers(data.items)
-                this.props.toogleIsFetching(false)
-            }
-        )
+        this.props.setCurrentPage(pageNumber, pageSize)
     }
 
     render() {
@@ -63,6 +57,8 @@ class UsersContainer extends React.Component<UsersPageType> {
                        users={this.props.state.users}
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
+                       isFollowingInProcess={this.props.state.isFollowingInProcess}
+                       toogleIsFollowingProcess={this.props.toogleIsFollowingProcess}
                 />
             </>
         )
@@ -74,6 +70,10 @@ const mapStateToProps = (state: AppRootStateType) => ({
     state: state.usersPage
 })
 
+/*    setCurrentPage(pageNumber: number) {
+        dispatch(setCurrentPageAC(pageNumber))
+    }*/
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     follow(id: number) {
         dispatch(followAC(id))
@@ -84,14 +84,17 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     setUsers(users: any) {
         dispatch(setUsersAC(users))
     },
-    setCurrentPage(pageNumber: number) {
-        dispatch(setCurrentPageAC(pageNumber))
+
+    toogleIsFollowingProcess(isFetching: boolean, userId: number) {
+        dispatch(toogleIsFollowingInProcessAC(isFetching, userId))
     },
-    setTotalUsersCount(totalCount: number) {
-        dispatch(setTotalUsersCountAC(totalCount))
+    getUsers: (currentPage: number, pageSize: number) => {
+        // @ts-ignore
+        dispatch(getUsersTC(currentPage, pageSize))
     },
-    toogleIsFetching(toogleValue: boolean) {
-        dispatch(toogleIsFetchingAC(toogleValue))
+    setCurrentPage: (pageNumber: number, pageSize: number) => {
+        // @ts-ignore
+        dispatch(setCurrentPageTC(pageNumber, pageSize))
     }
 })
 //TYPES

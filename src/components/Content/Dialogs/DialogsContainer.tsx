@@ -5,8 +5,9 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
-let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
-    dialogsPage: state.dialogsPage
+let mapStateToProps = (state: AppRootStateType) => ({
+    dialogsPage: state.dialogsPage,
+
 })
 
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => ({
@@ -25,6 +26,7 @@ export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dia
 
 type MapStateToPropsType = {
     dialogsPage: DialogPageStateType
+
 }
 
 type MapDispatchToPropsType = {

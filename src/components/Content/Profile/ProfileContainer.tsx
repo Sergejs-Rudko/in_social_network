@@ -1,24 +1,24 @@
 import React, {useEffect} from "react";
 import {AppRootStateType} from "../../../redux/reduxStore";
 import {Dispatch} from "redux";
-import {connect} from "react-redux";
-import {ProfilePageType, setUsersProfileAC, UsersProfileType} from "../../../redux/profileReducer";
-import axios from "axios";
+import {connect, useDispatch} from "react-redux";
+import {
+    ProfilePageType,
+    setUserProfileTC,
+    setUsersProfileAC,
+    setUserStatusTC,
+    UsersProfileType
+} from "../../../redux/profileReducer";
 import {Profile} from "./Profile";
 import {useParams} from "react-router-dom";
 
 
 const ProfileContainer = (props: ProfileContainerPropsType) => {
-    let {userId}  = useParams()
+    let {userId} = useParams()
+    const dispatch = useDispatch()
     useEffect(() => {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(
-            (response) => {
-                if (response) {
-                    props.setUsersProfile(response.data)
-                }
-            }
-        )
+        dispatch(setUserProfileTC(Number(userId)))
+        dispatch(setUserStatusTC(Number(userId)))
     }, [])
 
     return (
