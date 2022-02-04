@@ -1,6 +1,5 @@
 import {Dispatch} from "redux";
 import {AUTH_API} from "../API/API";
-import {log} from "util";
 
 let initialState: AuthType = {
     id: null,
@@ -62,6 +61,7 @@ export const authMeTC = () => {
 
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) => {
+    debugger
     return (dispatch: Dispatch) => {
         AUTH_API.login(email, password, rememberMe).then(data => {
             if (data.resultCode === 0) {
